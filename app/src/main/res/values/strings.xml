@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">rmp_pr_3kurs_5_2_v2_Savitsin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="InputLogin">Введите логин</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="InputPass">Введите пароль</string>
+    <string name="Login">Войти</string>
+    <string name="characterData">Данные о персонаже</string>
+    <string name="InputNameOrID">Введите имя или id персонажа</string>
+    <string name="SearchCharacter">Поиск персонажа</string>
+</resources>

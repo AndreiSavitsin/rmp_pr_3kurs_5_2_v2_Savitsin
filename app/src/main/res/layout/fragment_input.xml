@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/characterData"
+        android:layout_marginTop="100sp"
+        android:layout_marginLeft="120sp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/InputNameOrID"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="170sp"/>
+
+    <EditText
+        android:id="@+id/nameOrIdInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/InputNameOrID"
+        android:textSize="14sp"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="190sp"
+        android:width="250sp"
+        android:textAlignment="center"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SearchCharacter"
+        android:textAllCaps="false"
+        android:layout_marginTop="325sp"
+        android:layout_marginLeft="150sp" />
+
+</FrameLayout>
