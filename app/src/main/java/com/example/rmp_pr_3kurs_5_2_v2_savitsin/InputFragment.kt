@@ -1,6 +1,5 @@
 package com.example.rmp_pr_3kurs_5_2_v2_savitsin
 
-import android.app.VoiceInteractor.Request
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
@@ -32,6 +34,7 @@ class InputFragment : Fragment() {
     private lateinit var nameOrId: EditText
 
     private lateinit var buttonSearch: Button
+    private lateinit var buttonBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +80,11 @@ class InputFragment : Fragment() {
         buttonSearch.setOnClickListener {
             handler(view)
         }
+
+        buttonBack = view.findViewById(R.id.btnBack)
+        buttonBack.setOnClickListener {
+            goBack(view)
+        }
     }
 
     fun handler(view: View)
@@ -84,17 +92,23 @@ class InputFragment : Fragment() {
         nameOrId = view.findViewById(R.id.nameOrIdInput)
 
         if (nameOrId.text.toString().isNotEmpty() && nameOrId.text.toString() != null) {
-            var key = ""
-            var url = ""
+            var url = "https://pokeapi.co/"
             val queue = Volley.newRequestQueue(requireContext())
             val stringRequest = StringRequest(
                 Request.Method.GET,
                 url,
                 {
                         response->
-                    val obj = JSONObject(response)
-                    val temp = obj.getJSONObject("character")
-                    Log.d("MyLog", "Response: ${temp.getString("temp")}")
+                    try {
+                        val obj = JSONObject(response)
+
+                        val name = obj.getString("name")
+
+                    }
+                    catch (e: Exception)
+                    {
+                        Log.d("MyLog", "JSON Parsing error: ${e.message}")
+                    }
                 },
                 {
                     Log.d("MyLog", "Volley error: $it")
@@ -111,5 +125,15 @@ class InputFragment : Fragment() {
                 .create()
                 .show()
         }
+    }
+
+    fun goBack(view: View)
+    {
+        val fragmentManager: FragmentManager = parentFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.fragment_container, ShowInfoFragment())
+        fragmentTransaction.addToBackStack(LoginFragment.toString())
+        fragmentTransaction.commit()
     }
 }

@@ -9,4 +9,10 @@
     <string name="characterData">Данные о персонаже</string>
     <string name="InputNameOrID">Введите имя или id персонажа</string>
     <string name="SearchCharacter">Поиск персонажа</string>
+    <string name="Back">Назад</string>
+    <string name="InputInfoAboutCharacter">Ввод данных о персонаже</string>
+    <string name="Add">Добавить</string>
+    <string name="Save">Сохранить</string>
+    <string name="Edit">Редактировать</string>
+    <string name="Del">Удалить</string>
 </resources>
