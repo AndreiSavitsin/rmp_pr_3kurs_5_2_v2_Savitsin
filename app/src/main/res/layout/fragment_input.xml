@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:text="@string/InputInfoAboutCharacter"
         android:layout_marginTop="100sp"
-        android:layout_marginLeft="120sp"
+        android:layout_marginLeft="90sp"
         android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/InputNameOrID"
-        android:layout_marginLeft="100sp"
+        android:layout_marginLeft="90sp"
         android:layout_marginTop="170sp"/>
 
     <EditText
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/InputNameOrID"
         android:textSize="14sp"
-        android:layout_marginLeft="100sp"
+        android:layout_marginLeft="80sp"
         android:layout_marginTop="190sp"
         android:width="250sp"
         android:textAlignment="center"/>
@@ -35,7 +35,7 @@
         android:id="@+id/btnSearch"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150sp"
+        android:layout_marginLeft="120sp"
         android:layout_marginTop="325sp"
         android:text="@string/SearchCharacter"
         android:textAllCaps="false" />
@@ -44,7 +44,7 @@
         android:id="@+id/btnBack"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150sp"
+        android:layout_marginLeft="120sp"
         android:layout_marginTop="375sp"
         android:text="@string/Back"
         android:textAllCaps="false" />

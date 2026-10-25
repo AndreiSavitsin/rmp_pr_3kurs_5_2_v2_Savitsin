@@ -16,23 +16,15 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InputFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+// Экран для ввода имени/ID покемона и запроса к API
 class InputFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     private lateinit var nameOrId: EditText
-
     private lateinit var buttonSearch: Button
     private lateinit var buttonBack: Button
 
@@ -48,20 +40,10 @@ class InputFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_input, container, false)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment InputFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             InputFragment().apply {
@@ -75,65 +57,85 @@ class InputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Кнопка поиска покемона
         buttonSearch = view.findViewById(R.id.btnSearch)
-
         buttonSearch.setOnClickListener {
             handler(view)
         }
 
+        // Кнопка возврата на экран логина
         buttonBack = view.findViewById(R.id.btnBack)
         buttonBack.setOnClickListener {
             goBack(view)
         }
     }
 
-    fun handler(view: View)
-    {
+    fun handler(view: View) {
         nameOrId = view.findViewById(R.id.nameOrIdInput)
 
-        if (nameOrId.text.toString().isNotEmpty() && nameOrId.text.toString() != null) {
-            var url = "https://pokeapi.co/"
+        // Если поле не пустое, делаем запрос к API
+        if (nameOrId.text.toString().isNotEmpty()) {
+            var url = "https://pokeapi.co/api/v2/pokemon/${nameOrId.text}"
             val queue = Volley.newRequestQueue(requireContext())
             val stringRequest = StringRequest(
                 Request.Method.GET,
                 url,
-                {
-                        response->
+                { response ->
                     try {
+                        //Десериализируем ответ от сервера
                         val obj = JSONObject(response)
-
                         val name = obj.getString("name")
+                        val height = obj.getInt("height")
+                        val weight = obj.getInt("weight")
 
-                    }
-                    catch (e: Exception)
-                    {
+                        // Передаем данные на экран ShowInfoFragment через Bundle
+                        val fragmentManager: FragmentManager = parentFragmentManager
+                        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                        val showInfoFragment = ShowInfoFragment()
+                        val bundle = Bundle()
+                        bundle.putString("pokemonName", name)
+                        bundle.putInt("pokemonHeight", height)
+                        bundle.putInt("pokemonWeight", weight)
+                        showInfoFragment.arguments = bundle
+
+                        // Открываем второй экран
+                        fragmentTransaction.replace(R.id.fragment_container, showInfoFragment)
+                        fragmentTransaction.addToBackStack(null)
+                        fragmentTransaction.commit()
+                    } catch (e: Exception) {
                         Log.d("MyLog", "JSON Parsing error: ${e.message}")
                     }
                 },
                 {
+                    // Если покемон не найден
+                    val alert = AlertDialog.Builder(requireContext())
+                        .setTitle("Ошибка")
+                        .setMessage("Покемон не найден. Проверьте имя или ID.")
+                        .setPositiveButton("OK", null)
+                        .create()
+                        .show()
                     Log.d("MyLog", "Volley error: $it")
                 }
             )
             queue.add(stringRequest)
-        }
-        else
-        {
+        } else {
+            // Если поле пустое
             val alert = AlertDialog.Builder(requireContext())
                 .setTitle("Ошибка")
                 .setMessage("Введите название или id персонажа")
-                .setPositiveButton("OK",null)
+                .setPositiveButton("OK", null)
                 .create()
                 .show()
         }
     }
 
-    fun goBack(view: View)
-    {
+    fun goBack(view: View) {
         val fragmentManager: FragmentManager = parentFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
-        fragmentTransaction.replace(R.id.fragment_container, ShowInfoFragment())
-        fragmentTransaction.addToBackStack(LoginFragment.toString())
+        // Возвращаемся на экран авторизации
+        fragmentTransaction.replace(R.id.fragment_container, LoginFragment())
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 }

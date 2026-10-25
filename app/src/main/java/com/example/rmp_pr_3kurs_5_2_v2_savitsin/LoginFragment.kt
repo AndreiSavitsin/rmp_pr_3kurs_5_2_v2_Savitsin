@@ -24,6 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [LoginFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+// Экран авторизации
 class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -80,6 +81,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Кнопка входа
         buttonLogin = view.findViewById(R.id.btnLog)
 
         buttonLogin.setOnClickListener {
@@ -92,50 +94,55 @@ class LoginFragment : Fragment() {
         login = view.findViewById(R.id.loginInput)
         password = view.findViewById(R.id.passInput)
 
+        // Инициализируем SharedPreferences для хранения данных аккаунта
         preferences = requireActivity().getSharedPreferences(PREFS_FILE, MODE_PRIVATE)
+        ed = preferences.edit()
 
         var account: Account = Account(login.text.toString(), password.text.toString())
 
-        var savedAccount = Gson().fromJson(preferences.getString("account", ""), Account::class.java)
-
-        var firstLaunch: Boolean = preferences.getBoolean("firstLaunch", true)
-        ed = preferences.edit()
-
-        if (account.login == "" || account.password == "")
-        {
+        if (account.login == "" || account.password == "") {
             val alert = AlertDialog.Builder(requireContext())
                 .setTitle("Ошибка")
                 .setMessage("Введите логин и пароль")
                 .setPositiveButton("OK",null)
                 .create()
                 .show()
+            return
         }
-        else if (firstLaunch)
-        {
+
+        // Достаем сохраненный аккаунт из SharedPreferences
+        var savedAccount = Gson().fromJson(preferences.getString("account", ""), Account::class.java)
+
+        // Если аккаунта нет — сохраняем его
+        if (savedAccount == null) {
             val JSONAccount = Gson().toJson(account)
-
             ed.putString("account", JSONAccount)
-
-            firstLaunch = false
-
-            ed.putBoolean("firstLaunch", firstLaunch)
             ed.apply()
 
-            val fragmentManager: FragmentManager = parentFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            goToInputFragment()
+        }
+        else {
+            // Если аккаунт есть — проверяем совпадение логина и пароля
+            if (account.login == savedAccount.login && account.password == savedAccount.password) {
+                goToInputFragment()
+            } else {
+                val alert = AlertDialog.Builder(requireContext())
+                    .setTitle("Ошибка")
+                    .setMessage("Неправильный логин или пароль")
+                    .setPositiveButton("OK",null)
+                    .create()
+                    .show()
+            }
+        }
+    }
 
-            fragmentTransaction.replace(R.id.fragment_container, InputFragment())
-            fragmentTransaction.addToBackStack(LoginFragment.toString())
-            fragmentTransaction.commit()
-        }
-        else
-        {
-            val alert = AlertDialog.Builder(requireContext())
-                .setTitle("Ошибка")
-                .setMessage("Введите правильный логин и пароль")
-                .setPositiveButton("OK",null)
-                .create()
-                .show()
-        }
+    fun goToInputFragment() {
+        val fragmentManager: FragmentManager = parentFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
+        // Переход на экран поиска покемона
+        fragmentTransaction.replace(R.id.fragment_container, InputFragment())
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 }

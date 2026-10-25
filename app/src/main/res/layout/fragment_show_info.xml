@@ -1,77 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowInfoFragment">
+    android:padding="16dp">
 
     <TextView
+        android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/characterData"
-        android:layout_marginTop="100sp"
-        android:layout_marginLeft="120sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="80dp"
         android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200sp"
-        android:layout_marginLeft="130sp"
-        android:text="@string/characterData"/>
+        android:text="Имя:"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp" />
 
     <EditText
+        android:id="@+id/editName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="имя"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="70dp"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginLeft="100sp"
-        android:layout_marginTop="245sp"
-        android:width="200sp"
-        android:textAlignment="center"/>
+        android:text="Рост:"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="10dp" />
+
+    <EditText
+        android:id="@+id/editHeight"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="0"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="70dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вес:"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="10dp" />
+
+    <EditText
+        android:id="@+id/editWeight"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="0"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="70dp"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAdd"
-        android:layout_width="150sp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130sp"
-        android:layout_marginTop="325sp"
         android:text="@string/Add"
-        android:textAllCaps="false" />
+        android:layout_marginTop="420dp"
+        android:layout_marginLeft="15dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDel"
-        android:layout_width="150sp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130sp"
-        android:layout_marginTop="375sp"
         android:text="@string/Del"
-        android:textAllCaps="false" />
+        android:layout_marginTop="420dp"
+        android:layout_marginLeft="175dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEdit"
-        android:layout_width="150sp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130sp"
-        android:layout_marginTop="425sp"
         android:text="@string/Edit"
-        android:textAllCaps="false" />
+        android:layout_marginTop="480dp"
+        android:layout_marginLeft="15dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSave"
-        android:layout_width="150sp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130sp"
-        android:layout_marginTop="475sp"
         android:text="@string/Save"
-        android:textAllCaps="false" />
+        android:layout_marginTop="480dp"
+        android:layout_marginLeft="175dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnBack"
-        android:layout_width="150sp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130sp"
-        android:layout_marginTop="525sp"
         android:text="@string/Back"
-        android:textAllCaps="false" />
+        android:layout_marginTop="540dp"
+        android:layout_marginLeft="90dp"/>
 
 </FrameLayout>
