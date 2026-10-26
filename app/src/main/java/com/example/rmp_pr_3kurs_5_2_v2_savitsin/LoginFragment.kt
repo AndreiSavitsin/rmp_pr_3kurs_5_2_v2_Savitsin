@@ -111,7 +111,8 @@ class LoginFragment : Fragment() {
         }
 
         // Достаем сохраненный аккаунт из SharedPreferences
-        var savedAccount = Gson().fromJson(preferences.getString("account", ""), Account::class.java)
+        var savedAccount = Gson().fromJson(preferences.getString("account", ""),
+            Account::class.java)
 
         // Если аккаунта нет — сохраняем его
         if (savedAccount == null) {

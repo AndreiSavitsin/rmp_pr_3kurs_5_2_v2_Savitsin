@@ -97,15 +97,18 @@ class ShowInfoFragment : Fragment() {
                 updateList()
                 Toast.makeText(requireContext(), "Удалено", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Выберите покемона из списка", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Выберите покемона из списка",
+                    Toast.LENGTH_SHORT).show()
             }
         }
 
         btnEdit.setOnClickListener {
             if (currentPokemon != null) {
-                Toast.makeText(requireContext(), "Измените поля и нажмите Сохранить", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Измените поля и нажмите Сохранить",
+                    Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Выберите покемона из списка", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Выберите покемона из списка",
+                    Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -120,7 +123,8 @@ class ShowInfoFragment : Fragment() {
                 updateList()
                 Toast.makeText(requireContext(), "Сохранено", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Сначала выберите покемона из списка", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Сначала выберите покемона из списка",
+                    Toast.LENGTH_SHORT).show()
             }
         }
 
